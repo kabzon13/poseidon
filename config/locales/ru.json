@@ -1,0 +1,15 @@
+{
+    "auth": "Авторизация",
+    "email": "Email",
+    "password": "Пароль",
+    "sign-in-btn": "войти",
+    "create-account": "Создать пользователя",
+    "create-account-btn": "создать",
+    "confirm-password": "Повторить пароль",
+    "edit": "Редакторовать",
+    "user-name": "Имя",
+    "last-name": "Фамилия",
+    "user-create-error": "ошибка при создании пользователя",
+    "auth-error": "ошибка авторизации",
+    "user-not-found-err": "ошибка - пользователь не найден"
+}

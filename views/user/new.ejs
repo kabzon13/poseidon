@@ -1,0 +1,36 @@
+<form action="/user/create" method="POST">
+    <h2><%= i18n('create-account') %></h2>
+
+    <% if(flash && flash.err) { %>
+        <ul class="alert alert-success">
+            <% flash.err.forEach(function(error) { %>
+            <li><%- error %></li>
+            <% }) %>
+        </ul>
+    <% } %>
+
+    <div>
+        <!--todo i18n нужно дерево-->
+        <input type="text" class="form-control" placeholder="<%= i18n('user-name') %>" name="name">
+    </div>
+
+    <div>
+        <input type="text" class="form-control" placeholder="<%= i18n('last-name') %>" name="lastName">
+    </div>
+
+    <div class="control-group">
+        <input type="text" class="form-control" placeholder="<%= i18n('email') %>" name="email">
+    </div>
+
+    <div class="control-group">
+        <input type="password" class="form-control" placeholder="<%= i18n('password') %>" name="password">
+    </div>
+
+    <div class="control-group">
+        <input type="password" class="form-control" placeholder="<%= i18n('confirm-password') %>" name="confirmation">
+        <br/>
+    </div>
+
+    <input type="submit" class="btn btn-lg btn-primary btn-block" value="<%= i18n('create-account-btn') %>"/>
+    <!--<input type="hidden" name="_csrf" value="<%= _csrf %>"/>-->
+</form>
