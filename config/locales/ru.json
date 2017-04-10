@@ -7,9 +7,24 @@
     "create-account-btn": "создать",
     "confirm-password": "Повторить пароль",
     "edit": "Редакторовать",
+    "edit-user": "Редакторовать данные пользователя",
     "user-name": "Имя",
     "last-name": "Фамилия",
     "user-create-error": "ошибка при создании пользователя",
     "auth-error": "ошибка авторизации",
-    "user-not-found-err": "ошибка - пользователь не найден"
+    "user-not-found-err": "ошибка - пользователь не найден",
+    "main-menu-users": "Пользователи",
+    "main-menu-user-create": "Добавить пользователя",
+    "profile": "Профиль",
+    "user-administration": "Администрирование пользователей",
+    "access-rights": "Права доступа",
+
+    "role-user": "Пользователь (роль по умолчанию)",
+    "role-owner": "Владелец",
+    "role-admin": "Администратор",
+    "role-driver": "Водитель",
+    "role-manager": "Менеджер",
+    "role-storekeeper": "Кладовщик",
+
+    "save": "Сохранить"
 }

@@ -67,15 +67,11 @@ module.exports = {
                         // If the password from the form doesn't match the
                         // password from the database...
                         if (!valid) {
-                            var usernamePasswordMismatchError = [
-                                {
-                                    name: 'usernamePasswordMismatch',
-                                    message: 'Invalid username and password combination.'
-                                }
-                            ]
+
                             req.session.flash = {
-                                err: usernamePasswordMismatchError
-                            }
+                                err: [req.__('auth-error')]
+                            };
+
                             res.redirect('/session/new');
                             return;
                         }
@@ -84,9 +80,8 @@ module.exports = {
                         req.session.authenticated = true;
                         req.session.User = user;
 
-                        //Redirect to their profile page (e.g.
-                        // /views/user/show.ejs)
-                        res.redirect('/user/show/' + user.id);
+                        //res.redirect('/user/show/' + user.id);
+                        res.redirect('/');
                     });
             });
     },

@@ -1,9 +1,32 @@
 <form action="/user/update/<%= user.id %>" method="POST" class="form-signin">
-    <h2>Hey, you're editing a user...</h2>
+    <h2><%= i18n('edit-user') %></h2>
 
     <input value="<%= user.name %>" name="name" type="text" class="form-control"/>
-    <input value="<%= user.title %>" name="title" type="text" class="form-control"/>
+    <input value="<%= user.lastName %>" name="lastName" type="text" class="form-control"/>
     <input value="<%= user.email %>" name="email" type="text" class="form-control"/>
-    <input type="submit" value="Proceed" class="btn btn-lg btn-primary btn-block"/>
+    <div style="margin: 10px 0;">todo здесь будет поле смены пароля, над подумать как лучше</div>
+    <select value="<%= user.role %>" name="role" type="text" class="form-control">
+        <!--todo убрать в справочник -->
+        <option value="user" <%= user.role === 'user' && 'selected' %> >
+            <%= i18n('role-user') %>
+        </option>
+        <option value="owner" <%= user.role === 'owner' && 'selected' %> >
+            <%= i18n('role-owner') %>
+        </option>
+        <option value="admin" <%= user.role === 'admin' && 'selected' %> >
+            <%= i18n('role-admin') %>
+        </option>
+        <option value="driver" <%= user.role === 'driver' && 'selected' %> >
+            <%= i18n('role-driver') %>
+        </option>
+        <option value="manager" <%= user.role === 'manager' && 'selected' %> >
+            <%= i18n('role-manager') %>
+        </option>
+        <option value="storekeeper" <%= user.role === 'storekeeper' && 'selected' %> >
+            <%= i18n('role-storekeeper') %>
+        </option>
+        <!--/todo-->
+    </select>
+    <input type="submit" value="<%= i18n('save') %>" class="btn btn-lg btn-primary btn-block"/>
     <input type="hidden" name="_csrf" value="<%= _csrf %>"/>
 </form>

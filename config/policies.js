@@ -29,11 +29,11 @@ module.exports.policies = {
   '*': "flash",
 
   home: {
-      'new': "flash",
       '*': "authenticated"
   },
 
   user: {
+      'new': "flash",
       '*': "authenticated"
   }
 

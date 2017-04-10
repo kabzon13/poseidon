@@ -1,1 +1,3 @@
-<h1>HOME</h1>
+<% if (req.session.authenticated) { %>
+    <h2>todo для каждой роли своя стартовая страничка</h2>
+<% } %>

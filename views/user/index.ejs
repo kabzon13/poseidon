@@ -1,11 +1,12 @@
 <div class="container">
-    <h3>User Administration</h3>
+    <h3><%= i18n('user-administration') %></h3>
     <table class='table'>
         <tr>
             <th>ID</th>
-            <th>Name</th>
-            <th>Title</th>
-            <th>Email</th>
+            <th><%= i18n('user-name') %></th>
+            <th><%= i18n('last-name') %></th>
+            <th><%= i18n('email') %></th>
+            <th><%= i18n('access-rights') %></th>
             <th></th>
             <th></th>
             <th></th>
@@ -15,18 +16,19 @@
         <tr data-id="<%= user.id %>" data-model="user">
             <td><%= user.id %></td>
             <td><%= user.name %></td>
-            <td><%= user.title %></td>
+            <td><%= user.lastName %></td>
             <td><%= user.email %></td>
-            <td><a href="/user/show/<%= user.id %>" class="btn btn-sm btn-primary">Show</a></td>
-            <td><a href="/user/edit/<%= user.id %>" class="btn btn-sm btn-warning">Edit</a></td>
+            <td><%= i18n('role-' + user.role) %></td>
+            <td><a href="/user/show/<%= user.id %>" class="btn btn-sm btn-primary"><%= i18n('profile') %></a></td>
+            <td><a href="/user/edit/<%= user.id %>" class="btn btn-sm btn-warning"><%= i18n('edit') %></a></td>
 
-            <td>
+            <!--<td>
                 <form action="/user/destroy/<%= user.id %>" method="POST">
                     <input type="hidden" name="_method" value="delete"/>
                     <input type="submit" class="btn btn-sm btn-danger" value="Delete"/>
                     <input type="hidden" name="_csrf" value="<%= _csrf %>"/>
                 </form>
-            </td>
+            </td>-->
         </tr>
 
         <% }) %>
