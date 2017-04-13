@@ -1,8 +1,7 @@
-<div class="container">
+<div class="container-fluid">
     <h3><%= i18n('user-administration') %></h3>
-    <table class='table'>
-        <tr>
-            <th>ID</th>
+    <table class="table table-condensed table-hover">
+        <tr class="info">
             <th><%= i18n('user-name') %></th>
             <th><%= i18n('last-name') %></th>
             <th><%= i18n('email') %></th>
@@ -13,14 +12,14 @@
         </tr>
 
         <% _.each(users, function(user) { %>
-        <tr data-id="<%= user.id %>" data-model="user">
-            <td><%= user.id %></td>
+        <tr>
             <td><%= user.name %></td>
             <td><%= user.lastName %></td>
             <td><%= user.email %></td>
             <td><%= i18n('role-' + user.role) %></td>
             <td><a href="/user/show/<%= user.id %>" class="btn btn-sm btn-primary"><%= i18n('profile') %></a></td>
             <td><a href="/user/edit/<%= user.id %>" class="btn btn-sm btn-warning"><%= i18n('edit') %></a></td>
+            <td>todo блокировать доступ бывшему сотруднику</td>
 
             <!--<td>
                 <form action="/user/destroy/<%= user.id %>" method="POST">

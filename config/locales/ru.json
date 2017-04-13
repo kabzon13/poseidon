@@ -13,8 +13,12 @@
     "user-create-error": "ошибка при создании пользователя",
     "auth-error": "ошибка авторизации",
     "user-not-found-err": "ошибка - пользователь не найден",
+
     "main-menu-users": "Пользователи",
     "main-menu-user-create": "Добавить пользователя",
+    "main-menu-orders": "Заказы",
+    "main-menu-order-create": "Добавить заказ",
+
     "profile": "Профиль",
     "user-administration": "Администрирование пользователей",
     "access-rights": "Права доступа",
@@ -26,5 +30,25 @@
     "role-manager": "Менеджер",
     "role-storekeeper": "Кладовщик",
 
-    "save": "Сохранить"
+    "save": "Сохранить",
+    "orders": "Заказы",
+    "dateCreate": "Дата создания",
+    "orderDate": "Заказ на дату",
+    "driver": "Водитель",
+    "city": "Город",
+    "district": "Район",
+    "customer": "Заказщик",
+    "address": "Адрес",
+
+    "paymentForm": "Форма оплаты",
+    "paymentForm-cash": "Наличные",
+    "paymentForm-cashless": "Безнал",
+
+    "bottlesQuantity": "Количество бутылок",
+    "phones": "Телефоны",
+    "comment": "Комментарий",
+    "orderStatus": "Статус заказа",
+    "orderCreateError": "ошибка при создании заказа",
+    "create-order": "Создать заказ",
+    "create-order-btn": "cоздать заказ"
 }

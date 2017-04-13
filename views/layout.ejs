@@ -30,12 +30,14 @@
                 <ul class="nav navbar-nav">
                     <li><a href="/user"><%= i18n('main-menu-users') %></a></li>
                     <li><a href="/user/new"><%= i18n('main-menu-user-create') %></a></li>
+                    <li><a href="/order"><%= i18n('main-menu-orders') %></a></li>
+                    <li><a href="/order/new"><%= i18n('main-menu-order-create') %></a></li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
 <% } else { %>
-    <img src="/images/logo2.png">
+    <a href="/"><img src="/images/logo2.png"></a>
 <% } %>
 
 

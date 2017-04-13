@@ -13,7 +13,7 @@ module.exports = {
     },
 
     create: function (req, res, next) {
-        console.log(req.params.all());
+
         // Create a User with the params sent from
         // the sign-up form --> new.ejs
         User.create(req.params.all(), function userCreated(err, user) {
@@ -22,7 +22,7 @@ module.exports = {
             // if (err) return next(err);
 
             if (err) {
-                console.log(err);
+                sails.log.error(err);
                 req.session.flash = {err: [req.__('user-create-error')]}
 
                 // If error redirect back to sign-up page

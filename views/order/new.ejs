@@ -1,0 +1,80 @@
+<form action="/order/create" method="POST" class="col-lg-6 col-lg-offset-3">
+    <h2><%= i18n('create-order') %></h2>
+
+    <% if(flash && flash.err) { %>
+        <ul class="alert alert-success">
+            <% flash.err.forEach(function(error) { %>
+            <li><%- error %></li>
+            <% }) %>
+        </ul>
+    <% } %>
+
+    <div class="control-group">
+        <select name="city" type="text" class="form-control">
+            <!--todo нужны методы гобального доступа -->
+            <% sails.config.dictionary.city.names.forEach(function (cityName, idx) {%>
+                <option value="<%= cityName %>" <%= !idx && 'selected' %>>
+                    <%= cityName %>
+                </option>
+            <% }) %>
+            <!--/todo-->
+        </select>
+    </div>
+
+    <div>
+        <!--todo i18n нужно дерево-->
+        <input type="text" class="form-control" placeholder="<%= i18n('district') %>" name="district">
+    </div>
+
+    <div>
+        <input type="text" class="form-control" placeholder="<%= i18n('customer') %>" name="name">
+    </div>
+
+    <div class="control-group">
+        <input type="text" class="form-control" placeholder="<%= i18n('address') %>" name="address">
+    </div>
+
+    <div class="control-group">
+        <select name="paymentForm" type="text" class="form-control">
+            <!--todo нужны методы гобального доступа -->
+            <% sails.config.dictionary.paymentForms.forEach(function (paymentForm, idx) {%>
+                <option value="<%= paymentForm %>" <%= !idx && 'selected' %>>
+                    <%= i18n('paymentForm-' + paymentForm) %>
+                </option>
+            <% }) %>
+            <!--/todo-->
+        </select>
+    </div>
+
+    <div class="control-group">
+        <input type="number" class="form-control" placeholder="<%= i18n('bottlesQuantity') %>" name="bottlesQuantity">
+    </div>
+
+    <div class="control-group">
+        <!--todo parse phones-->
+        <input type="text" class="form-control" placeholder="<%= i18n('phones') %>" name="phones">
+    </div>
+
+    <div class="control-group">
+        <select name="driver" type="text" class="form-control">
+            <% drivers.forEach(function (driver, idx) {%>
+                <% var fulName = driver.name + ' ' + driver.lastName %>
+                <option value="<%= fulName %>" <%= !idx && 'selected' %>>
+                    <%= fulName %>
+                </option>
+            <% }) %>
+        </select>
+    </div>
+
+    <div class="control-group">
+        <%= i18n('comment') %>
+        <textarea class="form-control" name="comment"></textarea>
+    </div>
+
+    <input
+        type="submit"
+        class="btn btn-lg btn-primary btn-block"
+        value="<%= i18n('create-order-btn') %>"
+    />
+    <!--<input type="hidden" name="_csrf" value="<%= _csrf %>"/>-->
+</form>
