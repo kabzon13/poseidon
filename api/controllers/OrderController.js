@@ -8,11 +8,24 @@
 module.exports = {
     // This loads the sign-up page --> new.ejs
     'new': function (req, res) {
-        User.find({role: 'driver'})
+        var data = {};
+
+        User.find({role: 'driver'})  //todo поиск водителя и рйонов нужно делать параллельно
             .then((drivers = []) => {
-                res.view({drivers});
+                data.drivers = drivers;
+
+                return Customer.find({
+                    city: sails.config.dictionary.city.names[0]
+                })
+                .then((customers = []) => {
+                    return customers.map((customer) => {
+                        return {value: customer.district};
+                    })
+                });
             })
-            .then((data) => {
+            .then((districts) => {
+                data.districts = districts;
+
                 res.view(data);
             })
             .catch((err) => {

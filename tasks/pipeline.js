@@ -33,6 +33,12 @@ var jsFilesToInject = [
     'js/dependencies/jquery/jquery-3.2.0.min.js',
     'js/dependencies/bootstrap/bootstrap.min.js',
 
+    //todo move to local scripts
+    //todo remove it
+    //'js/dependencies/jqAutocomplete/jqAutocomplete.min.js',
+    'js/dependencies/jqAutocomplete/jqAutocomplete.js',
+    'js/order/order.js',
+
     // All of the rest of your client-side js files
     // will be injected here in no particular order.
 ];

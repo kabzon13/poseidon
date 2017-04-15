@@ -23,7 +23,12 @@
 
     <div>
         <!--todo i18n нужно дерево-->
-        <input type="text" class="form-control" placeholder="<%= i18n('district') %>" name="district">
+        <input
+            type="text"
+            class="form-control"
+            placeholder="<%= i18n('district') %>"
+            data-districts="<%= JSON.stringify(districts) %>"
+            name="district">
     </div>
 
     <div>
