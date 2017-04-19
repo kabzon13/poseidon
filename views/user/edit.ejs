@@ -7,9 +7,6 @@
     <div style="margin: 10px 0;">todo здесь будет поле смены пароля, над подумать как лучше</div>
     <select value="<%= user.role %>" name="role" type="text" class="form-control">
         <!--todo убрать в справочник -->
-        <option value="user" <%= user.role === 'user' && 'selected' %> >
-            <%= i18n('role-user') %>
-        </option>
         <option value="owner" <%= user.role === 'owner' && 'selected' %> >
             <%= i18n('role-owner') %>
         </option>

@@ -11,7 +11,9 @@
 
 <body>
 
+<!--todo move menu to block-->
 <% if (req.session.authenticated) { %>
+    <% var user = req.session.user; %>
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -22,16 +24,35 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a href="/"><img src="/images/logo2.png"></a>
+                <a href="/"><img src="/images/logo3.png" class="logo"></a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a href="/user"><%= i18n('main-menu-users') %></a></li>
-                    <li><a href="/user/new"><%= i18n('main-menu-user-create') %></a></li>
-                    <li><a href="/order"><%= i18n('main-menu-orders') %></a></li>
-                    <li><a href="/order/new"><%= i18n('main-menu-order-create') %></a></li>
+                    <% if (User.isPrivileged(user)) { %>
+
+                        <li><a href="/user"><%= i18n('main-menu-users') %></a></li>
+                        <li><a href="/user/new"><%= i18n('main-menu-user-create') %></a></li>
+                    <% } %>
+
+                    <% if (User.isPrivileged(user) || User.isManager(user)) { %>
+                        <li><a href="/order"><%= i18n('main-menu-orders') %></a></li>
+                    <% } %>
+
+                    <% if (User.isPrivileged(user) || User.isDriver(user)) { %>
+                        <li><a href="/route"><%= i18n('main-menu-routes') %></a></li>
+                    <% } %>
+
+                    <% if (User.isPrivileged(user) || User.isManager(user)) { %>
+                        <li><a href="/order/new"><%= i18n('main-menu-order-create') %></a></li>
+                    <% } %>
+                    <li><a href="/session/destroy"><%= i18n('main-menu-session-destroy') %></a></li>
+                    <li>
+                        <span class="text-primary menu-user-info">
+                            <%= user.name + ': ' + i18n('role-' + user.role)%>
+                        </span>
+                    </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
@@ -47,9 +68,6 @@
 
 <!--TEMPLATES END-->
 <!--SCRIPTS-->
-<script src="/js/dependencies/sails.io.js"></script>
-<script src="/js/dependencies/jquery/jquery-3.2.0.min.js"></script>
-<script src="/js/dependencies/bootstrap/bootstrap.min.js"></script>
 <!--SCRIPTS END-->
 </body>
 </html>

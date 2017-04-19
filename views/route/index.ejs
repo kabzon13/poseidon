@@ -1,0 +1,66 @@
+<div class="container-fluid">
+    <h3><%= i18n('routes-page-title') %></h3>
+    <table class="table table-condensed table-hover">
+        <tr class="info">
+            <% if (User.isPrivileged(req.session.user)) { %>
+                <th><%= i18n('dateCreate') %></th>
+            <% } %>
+
+            <th><%= i18n('orderDate') %></th>
+
+            <% if (User.isPrivileged(req.session.user)) { %>
+                <th><%= i18n('driver') %></th>
+            <% } %>
+
+            <th><%= i18n('address') %></th>
+
+            <th><%= i18n('customer') %></th>
+            <th><%= i18n('paymentForm') %></th>
+            <th><%= i18n('bottlesQuantity') %></th>
+            <th><%= i18n('phones') %></th>
+            <th><%= i18n('comment') %></th>
+            <th><%= i18n('orderStatus') %></th>
+            <% if (User.isPrivileged(req.session.user)) { %>
+                <th></th>
+            <% } %>
+        </tr>
+
+        <% _.each(orders, function(order) { %>
+        <tr>
+            <% if (User.isPrivileged(req.session.user)) { %>
+                <td class="g-no-wrap"><%= sails.moment(order.dateCreate).format('DD.MM.YY') %></td>
+            <% } %>
+            <td class="g-no-wrap"><%= sails.moment(order.orderDate).format('DD.MM.YY') %></td>
+
+            <% if (User.isPrivileged(req.session.user)) { %>
+                <td>
+                    <%= order.driver || '-' %>
+                </td>
+            <% } %>
+            <td>
+                <%= order.customer.city %><br/>
+                <%= order.customer.district %><br/>
+                <%= order.address %><br/>
+            </td>
+            <td><%= order.customer.name %></td>
+            <td><%= i18n('paymentForm-' + order.paymentForm) %></td>
+            <td><%= order.bottlesQuantity %></td>
+            <td><%= order.customer.phones.split(/[;,\s-]/) %></td>
+            <td><%= order.comment %></td>
+            <td><%= order.status %></td>
+            <% if (User.isPrivileged(req.session.user)) { %>
+                <td><a href="/order/edit/<%= order.id %>" class="btn btn-sm btn-warning"><%= i18n('edit') %></a></td>
+            <% } %>
+
+            <!--<td>
+                <form action="/user/destroy/<%= order.id %>" method="POST">
+                    <input type="hidden" name="_method" value="delete"/>
+                    <input type="submit" class="btn btn-sm btn-danger" value="Delete"/>
+                    <input type="hidden" name="_csrf" value="<%= _csrf %>"/>
+                </form>
+            </td>-->
+        </tr>
+
+        <% }) %>
+    </table>
+</div>

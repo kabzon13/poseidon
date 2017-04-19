@@ -25,24 +25,12 @@
     <div class="control-group">
         <select name="role" type="text" class="form-control">
             <!--todo убрать в справочник -->
-            <option value="user" selected>
-                <%= i18n('role-user') %>
-            </option>
-            <option value="owner">
-                <%= i18n('role-owner') %>
-            </option>
-            <option value="admin">
-                <%= i18n('role-admin') %>
-            </option>
-            <option value="driver">
-                <%= i18n('role-driver') %>
-            </option>
-            <option value="manager">
-                <%= i18n('role-manager') %>
-            </option>
-            <option value="storekeeper">
-                <%= i18n('role-storekeeper') %>
-            </option>
+
+            <% _.values(sails.config.dictionary.roles).forEach(function (role, idx) { %>
+                <option value="<%= role %>" <%= !idx ? 'selected' : '' %>>
+                    <%= i18n('role-' + role) %>
+                </option>
+            <% }); %>
             <!--/todo-->
         </select>
     </div>

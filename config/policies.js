@@ -26,8 +26,16 @@ module.exports.policies = {
      *                                                                          *
      ***************************************************************************/
 
-    '*': 'flash',
+    '*': [
+        'flash',
+        'authenticated'
+    ],
 
+    session: {
+        'new': 'flash',
+        'create': 'flash'
+    },
+/*
     home: {
         '*': 'authenticated'
     },
@@ -40,7 +48,7 @@ module.exports.policies = {
     order: {
         'new': ['flash', 'authenticated'], //todo много повторений
         '*': 'authenticated'
-    }
+    }*/
 
 
     /***************************************************************************

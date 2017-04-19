@@ -1,4 +1,4 @@
-<form action="/order/create" method="POST" class="col-lg-6 col-lg-offset-3">
+<form action="/order/create" method="POST" class="order-new col-lg-6 col-lg-offset-3">
     <h2><%= i18n('create-order') %></h2>
 
     <% if(flash && flash.err) { %>
@@ -21,9 +21,10 @@
         </select>
     </div>
 
-    <div>
-        <!--todo i18n нужно дерево-->
-        <input type="text" class="form-control" placeholder="<%= i18n('district') %>" name="district">
+
+    <div class="control-group">
+        <!--todo parse phones-->
+        <input type="text" class="form-control" placeholder="<%= i18n('phones') %>" name="phones">
     </div>
 
     <div>
@@ -32,6 +33,16 @@
 
     <div class="control-group">
         <input type="text" class="form-control" placeholder="<%= i18n('address') %>" name="address">
+    </div>
+
+    <div>
+        <!--todo i18n нужно дерево-->
+        <input
+            type="text"
+            class="form-control"
+            placeholder="<%= i18n('district') %>"
+            data-districts="<%= JSON.stringify(districts) %>"
+            name="district">
     </div>
 
     <div class="control-group">
@@ -51,19 +62,16 @@
     </div>
 
     <div class="control-group">
-        <!--todo parse phones-->
-        <input type="text" class="form-control" placeholder="<%= i18n('phones') %>" name="phones">
-    </div>
-
-    <div class="control-group">
-        <select name="driver" type="text" class="form-control">
-            <% drivers.forEach(function (driver, idx) {%>
-                <% var fulName = driver.name + ' ' + driver.lastName %>
-                <option value="<%= fulName %>" <%= !idx && 'selected' %>>
-                    <%= fulName %>
-                </option>
-            <% }) %>
-        </select>
+        <div style="overflow:hidden;">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="datetimepicker"></div>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" name="orderDate">
+        </div>
     </div>
 
     <div class="control-group">

@@ -1,0 +1,126 @@
+<form action="/order/update/<%= order.id %>" method="POST" class="col-lg-6 col-lg-offset-3">
+    <h2><%= i18n('edit-order') %></h2>
+
+    <% if(flash && flash.err) { %>
+        <ul class="alert alert-success">
+            <% flash.err.forEach(function(error) { %>
+            <li><%- error %></li>
+            <% }) %>
+        </ul>
+    <% } %>
+
+    <div class="control-group">
+        <select name="city" type="text" class="form-control">
+            <!--todo нужны методы гобального доступа -->
+            <% sails.config.dictionary.city.names.forEach(function (cityName, idx) {%>
+                <option
+                    value="<%= cityName %>"
+                    <%= order.customer.city === cityName ? 'selected' : '' %>
+                ><%=
+                    cityName
+                %></option>
+            <% }) %>
+            <!--/todo-->
+        </select>
+    </div>
+
+    <div>
+        <!--todo i18n нужно дерево-->
+        <input
+            type="text"
+            class="form-control"
+            placeholder="<%= i18n('district') %>"
+            name="district"
+            value="<%= order.customer.district %>">
+    </div>
+
+    <div class="control-group">
+        <input
+            type="text"
+            class="form-control"
+            placeholder="<%= i18n('address') %>"
+            value="<%= order.address %>"
+            name="address">
+    </div>
+
+    <div class="control-group">
+        <select name="paymentForm" type="text" class="form-control">
+            <!--todo нужны методы гобального доступа -->
+            <% sails.config.dictionary.paymentForms.forEach(function (paymentForm, idx) {%>
+                <option
+                    value="<%= paymentForm %>"
+                    <%= order.paymentForm === paymentForm ? 'selected' : '' %>>
+                    <%= i18n('paymentForm-' + paymentForm) %>
+                </option>
+            <% }) %>
+            <!--/todo-->
+        </select>
+    </div>
+
+    <div class="control-group">
+        <input
+            type="number"
+            class="form-control"
+            placeholder="<%= i18n('bottlesQuantity') %>"
+            value="<%= order.bottlesQuantity %>"
+            name="bottlesQuantity">
+    </div>
+
+    <div class="control-group">
+        <!--todo parse phones-->
+        <input
+            type="text"
+            class="form-control"
+            placeholder="<%= i18n('phones') %>"
+            value="<%= order.customer.phones %>"
+            name="phones">
+    </div>
+
+    <% if (User.isPrivileged(req.session.user)) { %>
+        <div class="control-group">
+            <select name="driver" type="text" class="form-control">
+                <% drivers.forEach(function (driver, idx) {%>
+                    <% var fulName = driver.name + ' ' + driver.lastName %>
+                    <option
+                        value="<%= fulName %>"
+                        <%=
+                            order.driver ?
+                                order.driver === fulName ?
+                                    'selected' :
+                                    '':
+                                !idx ?
+                                    'selected':
+                                    ''
+                        %>>
+                        <%= fulName %>
+                    </option>
+                <% }) %>
+            </select>
+        </div>
+    <% } %>
+
+    <div class="control-group">
+        <div style="overflow:hidden;">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="datetimepicker"></div>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" name="orderDate">
+        </div>
+    </div>
+
+    <div class="control-group">
+        <%= i18n('comment') %>
+        <textarea class="form-control" name="comment"><%= order.comment || '' %></textarea>
+    </div>
+
+    <input
+        type="submit"
+        class="btn btn-lg btn-primary btn-block"
+        value="<%= i18n('save').toLocaleLowerCase() %>"
+    />
+    <!--<input type="hidden" name="_csrf" value="<%= _csrf %>"/>-->
+</form>

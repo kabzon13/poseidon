@@ -41,7 +41,7 @@ module.exports = {
         // by a particular attribute.
         // User.findOneByEmail(req.param('email')).done(function(err, user) {
         User.findOneByEmail(
-            req.param('email'), function foundUser(err, user) {
+            req.param('email'), (err, user) => {
                 if (err) return next(err);
 
                 // If no user is found...
@@ -61,7 +61,7 @@ module.exports = {
                 bcrypt.compare(
                     req.param('password'),
                     user.encryptedPassword,
-                    function (err, valid) {
+                    (err, valid) => {
                         if (err) return next(err);
 
                         // If the password from the form doesn't match the
@@ -78,12 +78,26 @@ module.exports = {
 
                         // Log user in
                         req.session.authenticated = true;
-                        req.session.User = user;
+                        req.session.user = user;
 
                         //res.redirect('/user/show/' + user.id);
-                        res.redirect('/');
+
+                        this._routToStartPage(req, res);
                     });
             });
+    },
+
+    _routToStartPage (req, res) {
+        const role = req.session.user.role;
+        const roles = sails.config.dictionary.roles;
+        const roleToPage = {
+            [roles.owner] : '/',
+            [roles.admin] : '/',
+            [roles.manager] : '/order/new',
+            [roles.driver] : '/route/',
+        };
+
+        res.redirect(roleToPage[role]);
     },
 
     destroy: function (req, res, next) {

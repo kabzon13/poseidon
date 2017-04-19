@@ -18,6 +18,8 @@
     "main-menu-user-create": "Добавить пользователя",
     "main-menu-orders": "Заказы",
     "main-menu-order-create": "Добавить заказ",
+    "main-menu-session-destroy": "Выйти",
+    "main-menu-routes": "Маршрутный лист",
 
     "profile": "Профиль",
     "user-administration": "Администрирование пользователей",
@@ -50,5 +52,7 @@
     "orderStatus": "Статус заказа",
     "orderCreateError": "ошибка при создании заказа",
     "create-order": "Создать заказ",
-    "create-order-btn": "cоздать заказ"
+    "edit-order": "Редактировать заказ",
+    "create-order-btn": "cоздать заказ",
+    "routes-page-title": "Маршрутный лист"
 }

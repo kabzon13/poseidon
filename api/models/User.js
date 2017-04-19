@@ -30,7 +30,8 @@ module.exports = {
 
         role: {
             type: 'string',
-            defaultsTo: 'user'
+            defaultsTo: 'user',
+            enum: _.values(sails.config.dictionary.roles),
         },
 
         encryptedPassword: {
@@ -57,6 +58,26 @@ module.exports = {
             // values.online= true;
             next();
         });
-    }
+    },
+
+    isManager (user) {
+        return user.role === 'manager';
+    },
+
+    isDriver (user) {
+        return user.role === 'driver';
+    },
+
+    isAdmin (user) {
+        return user.role === 'admin';
+    },
+
+    isOwner (user) {
+        return user.role === 'owner';
+    },
+
+    isPrivileged (user) {
+        return this.isAdmin(user) || this.isOwner(user);
+    },
 
 };

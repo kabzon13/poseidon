@@ -21,24 +21,22 @@ module.exports = {
             defaultsTo: sails.config.dictionary.city.names[0]
         },
 
+        name: {
+            type: 'string'
+        },
+
         district: {
             type: 'string'
         },
 
-        name: {
-            type: 'string',
-            required: true
-        },
-
         address: {
-            type: 'string',
-            required: true
+            type: 'array'
         },
 
         phones: {
             type: 'string',
-            //type: 'array', todo validation
-            required: true
+            required: true,
+            unique: true
         },
 
         orders: {
