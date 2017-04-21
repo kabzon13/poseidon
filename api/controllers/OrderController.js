@@ -5,6 +5,8 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
+const _ = require('lodash');
+
 module.exports = {
     // This loads the sign-up page --> new.ejs
     'new' (req, res) {
