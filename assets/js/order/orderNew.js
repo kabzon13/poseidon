@@ -22,22 +22,26 @@ $(function (win) {
 
             this._districtInput.autocomplete({
                 lookup: this._districtInput.data('districts'),
-                onSelect: this._searchOrders.bind(this)
+                onSelect: this._searchOrders.bind(this),
+                triggerSelectOnValidInput: false
             });
 
             this._phonesInput.autocomplete({
                 lookup: [],
-                onSelect: this._onAutocompleteSelect.bind(this, 'phones')
+                onSelect: this._onAutocompleteSelect.bind(this, 'phones'),
+                triggerSelectOnValidInput: false
             });
 
             this._addressInput.autocomplete({
                 lookup: [],
-                onSelect: this._onAutocompleteSelect.bind(this, 'address')
+                onSelect: this._onAutocompleteSelect.bind(this, 'address'),
+                triggerSelectOnValidInput: false
             });
 
             this._nameInput.autocomplete({
                 lookup: [],
-                onSelect: this._onAutocompleteSelect.bind(this, 'name')
+                onSelect: this._onAutocompleteSelect.bind(this, 'name'),
+                triggerSelectOnValidInput: false
             });
         },
 
@@ -60,7 +64,7 @@ $(function (win) {
                 },
                 customerInfo = this._customers[event.data] || {};
 
-            customerInfo.district && this._districtInput.val(customerInfo.district);
+            //customerInfo.district && this._districtInput.val(customerInfo.district);
 
             fieldNames.forEach(function (name) {
                 if (name === skipField) {
@@ -77,10 +81,10 @@ $(function (win) {
                 }
             });
 
-            if (customerInfo.address && customerInfo.address.length === 1) {
+            /*if (customerInfo.address && customerInfo.address.length === 1) {
                 this._addressInput.val(customerInfo.address);
             }
-            customerInfo.name && this._nameInput.val(customerInfo.name);
+            customerInfo.name && this._nameInput.val(customerInfo.name);*/
 
             this._searchOrders();
         },
