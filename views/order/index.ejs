@@ -1,5 +1,29 @@
 <div class="container-fluid">
-    <h3><%= i18n('orders') %></h3>
+    <h3><%= i18n('orders') + ' - ' + moment(currentDate).format('YYYY.MM.DD') %></h3>
+
+
+    <div>
+        <nav>
+            <ul class="pagination">
+                <% prevDates.forEach(function (date) { %>
+                    <li>
+                        <a href="/order?date=<%= date %>"><%= moment(date).format('MM.DD') %></a>
+                    </li>
+                <% }) %>
+
+                <li class="active">
+                    <span><%= moment(currentDate).format('MM.DD') %></span>
+                </li>
+
+                <% nextDates.forEach(function (date) { %>
+                    <li>
+                        <a href="/order?date=<%= date %>"><%= moment(date).format('MM.DD') %></a>
+                    </li>
+                <% }) %>
+
+            </ul>
+        </nav>
+    </div>
 
     <% if (orders.length) { %>
             <table class="table table-condensed table-hover">

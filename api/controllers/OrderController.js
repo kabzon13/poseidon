@@ -6,8 +6,22 @@
  */
 
 const _ = require('lodash');
+const Promise = require("bluebird");
 
 module.exports = {
+
+    _viewsByRole: {
+        owner: 'index',
+        admin: 'index',
+        manager: 'index-manager',
+    },
+
+    _paginationLimitsByRole: {
+        owner: 7,
+        admin: 7,
+        manager: 2,
+    },
+
     // This loads the sign-up page --> new.ejs
     'new' (req, res) {
         var data = {};
@@ -32,13 +46,96 @@ module.exports = {
     },
 
     index (req, res, next) {
-        Order.find()
-            .sort('dateCreate DESC')
-            .populate('customer')
-            .exec(function foundOrder(err, orders) {
-                if (err) return next(err);
+        const moment = sails.moment;
+        const today = moment().format('YYYY-MM-DD');
+        const date = req.param('date') || today; //todo че нить с форматированием придумать
+        const thirtyDaysFromDate = moment(date).add(30, 'd').format('YYYY-MM-DD');
+        const tomorrow = moment(date).add(1, 'd').format('YYYY-MM-DD');
 
-                res.view({orders});
+        Promise.all([
+                this._getOrdersDates(today, thirtyDaysFromDate),
+                this._getOrders(date, tomorrow)
+            ])
+            .then((result) => {
+                const template = this._viewsByRole[req.session.user.role];
+                const paginationLimit = this._paginationLimitsByRole[req.session.user.role];
+
+                if (!template) {
+                    return  next('No template found for user role - ', req.session.user.role);
+                }
+
+                const prevDates = this._getPrevDates(date, result[0]);
+                const nextDates = this._getNextDates(date, result[0]);
+                const nextDaysLimit = paginationLimit +
+                    (prevDates.length < paginationLimit ? paginationLimit - prevDates.length : 0);
+                const prevDaysLimit = paginationLimit +
+                    (nextDaysLimit.length < paginationLimit ? paginationLimit - nextDaysLimit.length : 0);
+
+                res.view('order/' + template, {
+                    moment: moment,
+                    dates: result[0],
+                    orders: result[1],
+                    currentDate: moment(date).format('YYYY-MM-DD'),
+                    prevDates: prevDates.slice(-prevDaysLimit),
+                    nextDates: nextDates.slice(0, nextDaysLimit)
+                });
+            })
+            .catch((e) => {
+                console.log(e); //todo errors log
+
+                res.serverError(e);
+            });
+    },
+
+    _getNextDates (from, dates) {
+        const moment = sails.moment;
+
+        return dates.reduce(function (result, date) {
+            if (moment(date).isAfter(from)) {
+                result.push(moment(date).format('YYYY-MM-DD'));
+            }
+
+            return result;
+        }, []);
+    },
+
+    _getPrevDates (from, dates) {
+        const moment = sails.moment;
+
+        return dates.reduce((result, date) => {
+            if (moment(date).isBefore(from)) {
+                result.push(moment(date).format('YYYY-MM-DD'));
+            }
+
+            return result;
+        }, []);
+    },
+
+    _getOrders (from, to) {
+        return Order.find({
+            orderDate: {   //todo как то кривовато выглядит
+                '>=': from,
+                '<': to
+            }
+        })
+        .sort('dateCreate DESC')
+        .populate('customer');
+    },
+
+    _getOrdersDates (from, to) {
+        const moment = sails.moment;
+
+        return Order.find({
+                orderDate: {   //todo как то кривовато выглядит
+                    '>=': from,
+                    '<': to
+                }
+            })
+            .sort('orderDate ASC')
+            .then((orders) => {
+                return _.uniq(orders.map((order) => {
+                    return moment(order.orderDate).format('YYYY-MM-DD');
+                }));
             });
     },
 

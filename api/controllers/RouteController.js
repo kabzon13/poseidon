@@ -1,9 +1,11 @@
 module.exports = {
     index: function (req, res, next) {
-
+        const moment = sails.moment;
+        const today = moment().format('YYYY-MM-DD');
         const criteria = {
+            //todo critical убрать все добавления часов минут и тд работать с датой
             where: {
-                orderDate: {'>=': sails.moment().set('hour', 0).set('minute', 1).format()}
+                orderDate: {'>=': today}
             },
             sort: 'orderDate',
         };
@@ -12,8 +14,8 @@ module.exports = {
             //todo польное привязано к заказу. Нужен метод getFullNameByEmail
             criteria.where.driver = req.session.user.name + ' ' + req.session.user.lastName;
             criteria.where.orderDate = {
-                '>=': sails.moment().set('hour', 0).set('minute', 0).format(),
-                '<=': sails.moment().add(1, 'day').set('hour', 24).format()
+                '>=': today,
+                '<=': moment().add(1, 'day').set('hour', 24).format('YYYY-MM-DD')
             };
         }
 

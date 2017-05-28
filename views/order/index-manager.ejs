@@ -1,0 +1,101 @@
+<div class="container-fluid col-md-6 orders_role_manager">
+    <h3><%= i18n('orders') + ' - ' + moment(currentDate).format('YYYY. MM.DD') %></h3>
+
+    <div>
+        <nav>
+            <ul class="pagination">
+                <% prevDates.forEach(function (date) { %>
+                    <li>
+                        <a href="/order?date=<%= date %>"><%= moment(date).format('MM.DD') %></a>
+                    </li>
+                <% }) %>
+
+                <li class="active">
+                    <span><%= moment(currentDate).format('MM.DD') %></span>
+                </li>
+
+                <% nextDates.forEach(function (date) { %>
+                    <li>
+                        <a href="/order?date=<%= date %>"><%= moment(date).format('MM.DD') %></a>
+                    </li>
+                <% }) %>
+
+            </ul>
+        </nav>
+    </div>
+
+    <% if (orders.length) { %>
+        <% _.each(orders, function(order) { %>
+            <div class="panel panel-info order-panel_role_manager">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-md-11 col-xs-10">
+                            <span class="glyphicon glyphicon-user"></span>
+                            <strong class="panel-title"><%= order.customer.name %></strong>
+                        </div>
+                        <div class="col-md-1 col-xs-2">
+                            <a href="/order/edit/<%= order.id %>" class="btn btn-xs pull-right">
+                                <span class="glyphicon glyphicon glyphicon-pencil"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12">
+                            <span class="glyphicon glyphicon-phone"></span>
+                            <%= order.customer.phones.split(/[;,\s-]/) %>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-10 col-xs-8">
+                            <div>
+                                <span class="glyphicon glyphicon-home address-icon"></span>
+                                <div class="address">
+                                    <%= order.address %><br/>
+                                    <%= order.customer.city %><br/>
+                                </div>
+                            </div>
+                            <div>
+                                <span class="glyphicon glyphicon-usd"></span>
+                                <small class="payment-form">
+                                    <%= i18n('paymentForm-' + order.paymentForm) %>
+                                </small>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-xs-4 order-bage-cart-wrap">
+                            <div class="pull-right">
+                                <span
+                                    class="glyphicon glyphicon-shopping-cart text-success"
+                                    title="<%= i18n('bottlesQuantity')%>"></span>
+                                <span class="order-bage-cart btn-success badge"><%= order.bottlesQuantity %></span>
+                            </div>
+                        </div>
+                    </div>
+                    <% if (order.comment) { %>
+                        <div class="row">
+                            <div class="col-md-12 col-xs-12">
+                                <small
+                                    class="text-primary btn-link comment"
+                                    role="button"
+                                    data-toggle="collapse"
+                                    data-target="#<%= 'order-' + order.id %>"
+                                    aria-expanded="false">
+                                    <%= i18n('comment') %>...
+                                </small>
+                                <div class="collapse" id="<%= 'order-' + order.id %>">
+                                    <%= order.comment %>
+                                </div>
+                            </div>
+
+                        </div>
+                    <% } %>
+                </div>
+            </div>
+
+        <% });
+    }
+    else { %>
+            <h3>No orders found, &#x1f914;</h3>
+    <% } %>
+</div>

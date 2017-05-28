@@ -21,7 +21,7 @@ module.exports = {
         orderDate: {
             type: 'date',
             defaultsTo () {
-                return sails.moment().format();
+                return sails.moment().format('YYYY-MM-DD');
             }
         },
 

@@ -93,18 +93,18 @@ $(function (win) {
             var tomorrow = moment().add(1, 'd');
             moment.locale('ru');
 
-            $('[name=orderDate]').val(tomorrow.format());
+            $('[name=orderDate]').val(tomorrow.format('YYYY-MM-DD'));
 
             $('.datetimepicker').datetimepicker({
                 inline: true,
                 sideBySide: true,
                 locale: 'ru',
+                minDate: moment().startOf('day'),
                 defaultDate: tomorrow,
-                minDate: tomorrow,
                 format: 'YYYY-MM-DD'
             })
             .on('dp.change', function (e) {
-                $('[name=orderDate]').val(e.date.format());
+                $('[name=orderDate]').val(e.date.format('YYYY-MM-DD'));
             });
         },
 
