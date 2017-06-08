@@ -90,17 +90,19 @@ $(function (win) {
         },
 
         _initDatePicker: function () {
-            var tomorrow = moment().add(1, 'd');
+            var tomorrow = moment().add(1, 'd'),
+                chosenDate = $('[name=orderDate]').val();
+
             moment.locale('ru');
 
-            $('[name=orderDate]').val(tomorrow.format('YYYY-MM-DD'));
+            !chosenDate && $('[name=orderDate]').val(tomorrow.format('YYYY-MM-DD'));
 
             $('.datetimepicker').datetimepicker({
                 inline: true,
                 sideBySide: true,
                 locale: 'ru',
                 minDate: moment().startOf('day'),
-                defaultDate: tomorrow,
+                defaultDate: chosenDate || tomorrow,
                 format: 'YYYY-MM-DD'
             })
             .on('dp.change', function (e) {

@@ -40,7 +40,7 @@
                         <li><a href="/order"><%= i18n('main-menu-orders') %></a></li>
                     <% } %>
 
-                    <% if (User.isPrivileged(user) || User.isDriver(user)) { %>
+                    <% if (User.isPrivileged(user)) { %>
                         <li><a href="/route"><%= i18n('main-menu-routes') %></a></li>
                     <% } %>
 

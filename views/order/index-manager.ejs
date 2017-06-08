@@ -1,22 +1,23 @@
 <div class="container-fluid col-md-6 orders_role_manager">
-    <h3><%= i18n('orders') + ' - ' + moment(currentDate).format('YYYY. MM.DD') %></h3>
+    <% moment.locale('ru') %>
+    <h3><%= i18n('orders-on') + ' ' + moment(currentDate).format('D MMMM (dddd)') %></h3>
 
     <div>
         <nav>
             <ul class="pagination">
                 <% prevDates.forEach(function (date) { %>
                     <li>
-                        <a href="/order?date=<%= date %>"><%= moment(date).format('MM.DD') %></a>
+                        <a href="/order?date=<%= date %>"><%= moment(date).format('D MMM') %></a>
                     </li>
                 <% }) %>
 
                 <li class="active">
-                    <span><%= moment(currentDate).format('MM.DD') %></span>
+                    <span><%= moment(currentDate).format('D MMM') %></span>
                 </li>
 
                 <% nextDates.forEach(function (date) { %>
                     <li>
-                        <a href="/order?date=<%= date %>"><%= moment(date).format('MM.DD') %></a>
+                        <a href="/order?date=<%= date %>"><%= moment(date).format('D MMM') %></a>
                     </li>
                 <% }) %>
 

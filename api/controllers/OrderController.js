@@ -69,7 +69,7 @@ module.exports = {
                 const nextDaysLimit = paginationLimit +
                     (prevDates.length < paginationLimit ? paginationLimit - prevDates.length : 0);
                 const prevDaysLimit = paginationLimit +
-                    (nextDaysLimit.length < paginationLimit ? paginationLimit - nextDaysLimit.length : 0);
+                    (nextDates.length < paginationLimit ? paginationLimit - nextDates.length : 0);
 
                 res.view('order/' + template, {
                     moment: moment,
